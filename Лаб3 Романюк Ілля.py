@@ -1,53 +1,38 @@
-
-
-students = {}#словник для зберігання даних
-
-
-print("Введіть ім'я студента та оцінку (1-12). Для завершення введіть 'stop'.")
-
-while True: #  Безкінечний цикл для введення даних
-    name = input("Ім'я студента: ").strip()  # Введення імені студента
-    if name.lower() == "stop":  # Якщо користувач вводить "stop", вийти з циклу
+# Створюємо порожній словник для збереження результатів студентів
+results = {}
+# Безкінечний цикл для введення даних
+while True:
+    name = input("Введіть ім'я: ")
+    if name == "stop":
         break
-
-    try:
-        grade = int(input("Оцінка: ").strip())  # Введення оцінки як числа
-        if grade < 1 or grade > 12:
-            # Якщо оцінка не в діапазоні 1–12, повідомити і повернутись на початок
-            print("Оцінка має бути в межах від 1 до 12.")
-            continue
-        students[name] = grade        # Зберігаємо оцінку у словник: ім'я — ключ, оцінка — значення
-    except ValueError:
-        print("Оцінка має бути числом.") # Якщо оцінка — не число, вивести повідомлення і повернутись на початок
-        continue
-
-
-print("\nРезультати:") #  Після завершення введення, виводимо результати
-for name, grade in students.items():
-    # Виводимо ім’я студента та його оцінку
-    print(f"{name}: {grade}")
-
-# Обчислення статистики
-grades = list(students.values())  # Отримуємо список усіх оцінок
-average = sum(grades) / len(grades) if grades else 0  # Середній бал (if grades else 0 перевірка чи він не порожній
-
-#Розподіл студентів по категоріях:
-excellent = {name: grade for name, grade in students.items() if 10 <= grade <= 12}     # Відмінники (створеня нового списку
-# з сиску студентів і сортіровка, проходимо по кожному стодунту та його оцінці
-good = {name: grade for name, grade in students.items() if 7 <= grade <= 9}           # Хорошисти
-satisfactory = {name: grade for name, grade in students.items() if 4 <= grade <= 6}   # Відстаючі
-failed = {name: grade for name, grade in students.items() if 1 <= grade <= 3}         # Ті, хто не здав
-
-# Вивід статистики
-print("\nСтатистика:")
-print(f"Середній бал групи: {average:.2f}")  # Вивід середнього бала з двома знаками після коми
-
-# Вивід кількості відмінників і їх імен (якщо є)
-print(f"Кількість відмінників (10-12): {len(excellent)} - {', '.join(excellent.keys()) if excellent else 'немає'}")
-#excellent.keys() — отримує список імен (ключів) зі словника excellent. ', '.join(...) —
-# об'єднує імена в один рядок через кому.  if excellent else 'немає' — умовний вираз:
-# Якщо словник excellent не порожній → показує імена.
-
-print(f"Кількість хорошистів (7-9): {len(good)}")  # Кількість хорошистів
-print(f"Кількість відстаючих (4-6): {len(satisfactory)}")  # Кількість відстаючих (len рахує кількість елементів в рядку
-print(f"Кількість тих, хто не здав (1-3): {len(failed)}")  # Кількість тих, хто не здав
+    # Введення оцінки з перевіркою правильності
+    while True:
+        grade_in = input("Введіть оцінку  ")
+        if grade_in:  # Перевіряємо, чи це число
+            grade = int(grade_in)
+            if 1 <= grade <= 12:
+                results[name] = grade
+                break
+            else:
+                print("Оцінка має бути від 1 до 12. Спробуйте ще раз.")
+        else:
+            print("Оцінка має бути числом. Спробуйте ще раз.")
+#Виводимо список усіх студентів та їхні оцінки
+if results:
+    print("\nСписок студентів та їх оцінки:")
+    for name, grade in results.items():
+        print(f"{name}: {grade}")
+        # Обчислюємо та виводимо середній бал
+    print("Середній бал:", round(sum(results.values()) / len(results), 2))
+# Класифікуємо студентів за рівнем успішності
+    exelent = [n for n in results if 10 <= results[n] <= 12]
+    good = [n for n in results if 7 <= results[n] <= 9]
+    weak = [n for n in results if 4 <= results[n] <= 6]
+    fail = [n for n in results if 1 <= results[n] <= 3]
+# Виводимо кількість і список студентів у кожній категорії
+    print("Відмінники:", len(exelent), "→", ', '.join(exelent) if exelent else "немає")
+    print("Хорошисти:", len(good), "→", ', ')
+    print("Відстаючі:", len(weak), "→", ', ')
+    print("Не здали:", len(fail), "→", ', ')
+else:
+    print("Жодного студента не було введено.")
