@@ -1,0 +1,29 @@
+[
+    {
+        "user_id": 765705136,
+        "username": "ivorov",
+        "fullname": "Романюк Ілля Леонідович",
+        "phone": "0996461861",
+        "address": "Луцьк",
+        "bonus_points": 62,
+        "total_orders": 12
+    },
+    {
+        "user_id": 1373632273,
+        "username": "lkkssi",
+        "fullname": "Дпол Нкушща Павлвд",
+        "phone": "277493920",
+        "address": "Луцьк",
+        "bonus_points": 3,
+        "total_orders": 1
+    },
+    {
+        "user_id": 5985650911,
+        "username": "ivorovikov",
+        "fullname": "Лол пол кол",
+        "phone": "0996461752",
+        "address": "Луцьк",
+        "bonus_points": 2,
+        "total_orders": 1
+    }
+]
